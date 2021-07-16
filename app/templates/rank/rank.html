@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>랭킹</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='snake.ico') }}">
+</head>
+
+<body>
+    {% if g.user %}
+    <p>플레이어 : {{ username }}</p>
+    <p>당신의 최고점수 : {{ highscore }}</p>
+    {% endif %}
+
+    {% if score_list %}
+    <ol>
+    {% for score in score_list %}
+        <li>{{ score.username }}  /  {{ score.highscore }}</li>
+    {% endfor %}
+    </ol>
+    {% else %}
+    <p>등록된 점수가 없습니다.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	{% if g.user %}
+    <title>Snake Game</title>
+	{% else %}
+	<title>Snake Game (Guest)</title>
+    {% endif %}
+	<link rel="shortcut icon" href="{{ url_for('static', filename='snake.ico') }}">
+	<!-- libraries -->
+	<script type="text/javascript" src="{{ url_for('static', filename='lib/p5.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='lib/p5.dom.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='lib/p5.sound.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='lib/lib.js') }}"></script>
+	<!-- css -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+	<!-- javascript -->
+</head>
+
+<body>
+	{% if g.user %}
+    <h4>🐍 SNAKE GAME 🐍</h4>
+	{% else %}
+	<h4>🐍 SNAKE GAME (Guest) 🐍</h4>
+    {% endif %}
+	<div>
+		<span class="scoreboard">플레이어 : {{ data.username }}</span>
+		<span class="scoreboard" id="score">점수 : 0</span>
+		<span class="scoreboard" id="highscore">최고점수 : {{ data.highscore }}</span>
+	</div>
+
+	<div>
+		<input class="buttons" type="button" value="로그아웃" onclick="window.location.href = '{{ url_for('auth.logout') }}'">
+		<input class="buttons" type="button" value="랭킹 보기" onclick="window.open('{{ url_for('rank.rank') }}','snake-game 랭킹','width=430,height=500,location=no,status=no,scrollbars=yes');">
+	</div>
+
+	<script type="text/javascript">
+		var username = "{{ data.username }}";
+		var highscore = {{ data.highscore }};
+		{% if g.user %}
+		var login = true;
+		{% else %}
+		var login = false;
+    	{% endif %}
+	</script>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/snake-game.js') }}"></script>
+</body>
+</html>
